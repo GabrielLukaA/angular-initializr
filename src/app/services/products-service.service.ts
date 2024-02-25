@@ -1,4 +1,9 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+
+// No angular não é tão comum se utilizar o axios, muitas vezes é optado pelo httpClient
+// tendo em vista que o próprio angular já fornece esse module
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http"
 
 
 // Todas as services devem possuir um @injectable
@@ -8,7 +13,22 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsServiceService {
+export class ProductService {
 
-  constructor() { }
+
+  private apiUrl = 'https://the-cocktail-db.p.rapidapi.com/search.php'
+  constructor(private httpClient:HttpClient) {
+    
+   }
+
+   fetchData(search:string):Observable<any>{
+    const options = {
+      params: new HttpParams().set('s',search),
+      headers:new HttpHeaders({
+        'X-RapidAPI-Key':'dd506fe580msdebc4a73649853p118e04jsna51f66eeb566',
+        'X-RapidAPI-Host':'the-cocktail-db.p.rapidapi.com'
+      })
+    }
+   return this.httpClient.get(this.apiUrl, options)
+   }
 }

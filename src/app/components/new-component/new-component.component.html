@@ -1,5 +1,5 @@
 <p>new-component works!</p>
-<li *ngFor="let product of productList | async">
-{{productList.name}}
+<li *ngFor="let product of productList$ | async">
+  {{product}}
 </li>
-<button (click)="onClick()">filtro</button>
+<!-- <button (click)="onClick()">filtro</button> -->
